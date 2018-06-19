@@ -47,6 +47,8 @@ import numpy as np
 import copy
 import os
 
+
+
 class COCO_Text:
     def __init__(self, annotation_file=None):
         """
