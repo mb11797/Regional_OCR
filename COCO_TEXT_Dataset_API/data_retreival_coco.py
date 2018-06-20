@@ -17,9 +17,9 @@ imgs = ct.getImgIds(imgIds=ct.train, catIds=[('legibility','legible'), ('class',
 
 
 
-print(type(imgs))
-print(imgs)
-print(len(imgs))
+# print(type(imgs))
+# print(imgs)
+# print(len(imgs))
 
 # Annotation Ids retreival form the validation set that are legible, machine printed and have an area between 0 and 200 pixel
 anns = ct.getAnnIds(imgIds=ct.val, catIds=[('legibility','legible'),('class','machine printed')], areaRng=[0,200])
@@ -28,9 +28,9 @@ anns = ct.getAnnIds(imgIds=ct.val, catIds=[('legibility','legible'),('class','ma
 
 
 
-print(type(anns))
-print(anns)
-print(len(anns))
+# print(type(anns))
+# print(anns)
+# print(len(anns))
 
 
 #####   VISUALIZE COCO TEXT ANNOTATIONS
@@ -63,7 +63,22 @@ plt.figure()
 plt.imshow(I)
 plt.show()
 
+##### Showing the bounding boxes on the image
+import cv2
 
+# print(type(img['file_name']))
+# print(img['file_name'])
+# print(type(I))
+
+i=1
+img_txt_bbox_loc = dict()
+for item in anns:
+    img_txt_bbox_loc[i] = item['bbox']
+    i =+ 1
+    # print(item['bbox'])
+    print(img_txt_bbox_loc[i])
+
+print(type(img_txt_bbox_loc))
 
 
 
