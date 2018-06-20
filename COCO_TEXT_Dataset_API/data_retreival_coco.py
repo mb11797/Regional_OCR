@@ -73,11 +73,19 @@ import cv2
 i=1
 img_txt_bbox_loc = dict()
 for item in anns:
-    img_txt_bbox_loc[i] = item['bbox']
-    i =+ 1
-    # print(item['bbox'])
-    print(img_txt_bbox_loc[i])
+    # img_txt_bbox_loc[i] = item['bbox']
+    # i =+ 1
+    # # print(item['bbox'])
+    # print(img_txt_bbox_loc[i])
+    x,y,w,h = item['bbox']
+    cv2.rectangle(I,(int(x),int(y)),(int(x+w),int(y+h)),(0,255,0),5)
 
+
+plt.imshow(I)
+plt.show()
+
+# cv2.imshow('Image+bbox',I)
+# plt.show()
 print(type(img_txt_bbox_loc))
 
 
