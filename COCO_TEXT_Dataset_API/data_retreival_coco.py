@@ -16,10 +16,9 @@ imgs = ct.getImgIds(imgIds=ct.train, catIds=[('legibility','legible'), ('class',
 # imgs = ct.getImgIds(imgIds=ct.test)
 
 
-
-# print(type(imgs))
-# print(imgs)
-# print(len(imgs))
+print(type(imgs))
+print(imgs)
+print(len(imgs))
 
 # Annotation Ids retreival form the validation set that are legible, machine printed and have an area between 0 and 200 pixel
 anns = ct.getAnnIds(imgIds=ct.val, catIds=[('legibility','legible'),('class','machine printed')], areaRng=[0,200])
@@ -45,7 +44,7 @@ import pylab
 pylab.rcParams['figure.figsize'] = (10.0, 8.0)
 
 #get all images containing at least one instance of legible text
-imgIds = ct.getImgIds(imgIds = ct.train, catIds=[('legibility','legible')])
+imgIds = ct.getImgIds(imgIds = ct.val, catIds=[('legibility','legible')])
 
 #pick one at random
 img = ct.loadImgs(imgIds[np.random.randint(0,len(imgIds))])[0]
@@ -59,9 +58,9 @@ print(ct.showAnns(anns))
 #now loading the image
 I = io.imread('%s/%s/%s'%(dataDir,dataType,img['file_name']))
 print('/%s/%s'%(dataType,img['file_name']))
-plt.figure()
-plt.imshow(I)
-plt.show()
+# plt.figure()
+# plt.imshow(I)
+# plt.show()
 
 ##### Showing the bounding boxes on the image
 import cv2
@@ -78,11 +77,19 @@ for item in anns:
     # # print(item['bbox'])
     # print(img_txt_bbox_loc[i])
     x,y,w,h = item['bbox']
-    cv2.rectangle(I,(int(x),int(y)),(int(x+w),int(y+h)),(0,255,0),5)
+    x,y,w,h = int(x), int(y), int(w), int(h)
+    cv2.rectangle(I,(x,y),(x+w,y+h),(0,255,0),2)
+    cropped_img = I[y:y+h, x:x+w]
+    cv2.imshow("cropped", cropped_img)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
 
 
-plt.imshow(I)
-plt.show()
+
+cv2.imshow('image+bbox',I)
+# plt.show()
+cv2.waitKey(0)
+cv2.destroyAllWindows()
 
 # cv2.imshow('Image+bbox',I)
 # plt.show()

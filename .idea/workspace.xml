@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/COCO_TEXT_Dataset_API/data_retreival_coco.py" line="79" />
+    <bookmark url="file://$PROJECT_DIR$/COCO_TEXT_Dataset_API/data_retreival_coco.py" line="78" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a5c58ed9-5572-4c7f-a7f0-413cddd0d4b1" name="Default" comment="">
@@ -33,8 +33,8 @@
       <file leaf-file-name="data_retreival_coco.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/COCO_TEXT_Dataset_API/data_retreival_coco.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="63" column="10" lean-forward="true" selection-start-line="63" selection-start-column="10" selection-end-line="63" selection-end-column="10" />
+            <state relative-caret-position="457">
+              <caret line="91" column="23" lean-forward="true" selection-start-line="91" selection-start-column="23" selection-end-line="91" selection-end-column="23" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -543,8 +543,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/COCO_TEXT_Dataset_API/data_retreival_coco.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="63" column="10" lean-forward="true" selection-start-line="63" selection-start-column="10" selection-end-line="63" selection-end-column="10" />
+        <state relative-caret-position="457">
+          <caret line="91" column="23" lean-forward="true" selection-start-line="91" selection-start-column="23" selection-end-line="91" selection-end-column="23" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
           </folding>
