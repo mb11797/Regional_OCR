@@ -72,15 +72,15 @@ import cv2
 i=1
 img_txt_bbox_loc = dict()
 for item in anns:
-    # img_txt_bbox_loc[i] = item['bbox']
-    # i =+ 1
-    # # print(item['bbox'])
-    # print(img_txt_bbox_loc[i])
+    img_txt_bbox_loc[i] = item['bbox']
+    # print(item['bbox'])
+    print(img_txt_bbox_loc[i])
     x,y,w,h = item['bbox']
     x,y,w,h = int(x), int(y), int(w), int(h)
     cv2.rectangle(I,(x,y),(x+w,y+h),(0,255,0),2)
     cropped_img = I[y:y+h, x:x+w]
-    cv2.imshow("cropped", cropped_img)
+    cv2.imshow("cropped"+str(i), cropped_img)
+    i += 1
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
 
@@ -89,7 +89,7 @@ for item in anns:
 cv2.imshow('image+bbox',I)
 # plt.show()
 cv2.waitKey(0)
-cv2.destroyAllWindows()
+# cv2.destroyAllWindows()
 
 # cv2.imshow('Image+bbox',I)
 # plt.show()
