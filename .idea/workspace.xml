@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/COCO_TEXT_Dataset_API/data_retreival_coco.py" line="77" />
+    <bookmark url="file://$PROJECT_DIR$/COCO_TEXT_Dataset_API/data_retreival_coco.py" line="79" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a5c58ed9-5572-4c7f-a7f0-413cddd0d4b1" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/COCO_TEXT_Dataset_API/data_retreival_coco.py" afterPath="$PROJECT_DIR$/COCO_TEXT_Dataset_API/data_retreival_coco.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pytesseract_image_to_text+bbox.py" afterPath="$PROJECT_DIR$/pytesseract_image_to_text+bbox.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,13 +21,25 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="data_retreival_coco.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="data_retreival_coco.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/COCO_TEXT_Dataset_API/data_retreival_coco.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="65" column="10" lean-forward="true" selection-start-line="65" selection-start-column="10" selection-end-line="65" selection-end-column="10" />
+            <state relative-caret-position="335">
+              <caret line="96" column="28" lean-forward="true" selection-start-line="96" selection-start-column="28" selection-end-line="96" selection-end-column="28" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pytesseract_image_to_text+bbox.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pytesseract_image_to_text+bbox.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="19" column="63" lean-forward="false" selection-start-line="19" selection-start-column="63" selection-end-line="19" selection-end-column="63" />
+              <folding>
+                <element signature="e#0#21#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -51,6 +63,7 @@
         <option value="$PROJECT_DIR$/image_to_bbox.py" />
         <option value="$PROJECT_DIR$/COCO_TEXT_Dataset_API/coco_text.py" />
         <option value="$PROJECT_DIR$/COCO_TEXT_Dataset_API/data_retreival_coco.py" />
+        <option value="$PROJECT_DIR$/pytesseract_image_to_text+bbox.py" />
       </list>
     </option>
   </component>
@@ -120,7 +133,7 @@
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$USER_HOME$/Documents/Manas/bin/python3.6" />
   </component>
-  <component name="RunManager" selected="Python.data_retreival_coco">
+  <component name="RunManager" selected="Python.image_to_bbox">
     <configuration default="false" name="image_to_bbox" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -318,9 +331,9 @@
     </list>
     <recent_temporary>
       <list size="3">
-        <item index="0" class="java.lang.String" itemvalue="Python.data_retreival_coco" />
-        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in Regional_OCR" />
-        <item index="2" class="java.lang.String" itemvalue="Python.image_to_bbox" />
+        <item index="0" class="java.lang.String" itemvalue="Python.image_to_bbox" />
+        <item index="1" class="java.lang.String" itemvalue="Python.data_retreival_coco" />
+        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in Regional_OCR" />
       </list>
     </recent_temporary>
   </component>
@@ -360,7 +373,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20772442" sideWeight="0.5028317" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33716077" sideWeight="0.49838188" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20772442" sideWeight="0.49716827" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31941545" sideWeight="0.496994" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27453026" sideWeight="0.496994" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.09587379" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32881" sideWeight="0.4985972" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -391,6 +404,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -423,6 +439,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -496,19 +515,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pytesseract_image_to_text+bbox.py">
+    <entry file="file://$PROJECT_DIR$/COCO_TEXT_Dataset_API/data_retreival_coco.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+        <state relative-caret-position="335">
+          <caret line="96" column="28" lean-forward="true" selection-start-line="96" selection-start-column="28" selection-end-line="96" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/COCO_TEXT_Dataset_API/data_retreival_coco.py">
+    <entry file="file://$PROJECT_DIR$/pytesseract_image_to_text+bbox.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="65" column="10" lean-forward="true" selection-start-line="65" selection-start-column="10" selection-end-line="65" selection-end-column="10" />
+        <state relative-caret-position="285">
+          <caret line="19" column="63" lean-forward="false" selection-start-line="19" selection-start-column="63" selection-end-line="19" selection-end-column="63" />
           <folding>
-            <element signature="e#0#16#0" expanded="true" />
+            <element signature="e#0#21#0" expanded="true" />
           </folding>
         </state>
       </provider>

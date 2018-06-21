@@ -40,6 +40,7 @@ dataType = 'train2014'
 import numpy as np
 import skimage.io as io
 import matplotlib.pyplot as plt
+import pytesseract
 import pylab
 pylab.rcParams['figure.figsize'] = (10.0, 8.0)
 
@@ -71,6 +72,7 @@ import cv2
 
 i=1
 img_txt_bbox_loc = dict()
+cropped_img = dict()
 for item in anns:
     img_txt_bbox_loc[i] = item['bbox']
     # print(item['bbox'])
@@ -78,22 +80,27 @@ for item in anns:
     x,y,w,h = item['bbox']
     x,y,w,h = int(x), int(y), int(w), int(h)
     cv2.rectangle(I,(x,y),(x+w,y+h),(0,255,0),2)
-    cropped_img = I[y:y+h, x:x+w]
-    cv2.imshow("cropped"+str(i), cropped_img)
+    cropped_img[i] = I[y:y+h, x:x+w]
+    plt.imshow(cropped_img[i])
+    plt.show()
+    # cv2.imshow("cropped"+str(i), cropped_img[i])
+
+    print("box_" + str(i) + " : \n")
+    print(pytesseract.image_to_string(cropped_img[i], lang='eng'))
     i += 1
+
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
 
 
 
-cv2.imshow('image+bbox',I)
-# plt.show()
-cv2.waitKey(0)
+# cv2.imshow('image+bbox',I)
+# cv2.waitKey(0)
 # cv2.destroyAllWindows()
 
-# cv2.imshow('Image+bbox',I)
-# plt.show()
-print(type(img_txt_bbox_loc))
+plt.imshow(I)
+plt.show()
+# print(type(img_txt_bbox_loc))
 
 
 
