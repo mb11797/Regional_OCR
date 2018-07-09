@@ -86,6 +86,7 @@ for item in anns:
     # cv2.imshow("cropped"+str(i), cropped_img[i])
 
     print("box_" + str(i) + " : \n")
+    print(type(cropped_img[i]))
     print(pytesseract.image_to_string(cropped_img[i], lang='eng'))
     i += 1
 
