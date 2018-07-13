@@ -63,7 +63,7 @@ def read_n_save_Files(path, cat):
                 for root,dirnames,filenames in os.walk(path2):
                     for filename in filenames:
                         # img_arr = scipy.ndimage.imread(root+'/'+filename, flatten=False).flatten()
-                        img_arr = scipy.ndimage.imread(root+'/'+filename, flatten=False)
+                        img_arr = scipy.ndimage.imread(root+'/'+filename, flatten=False, mode='RGB')
                         print(img_arr.shape)
                         # print(img_arr)
                         # print(img_arr.shape)
@@ -81,7 +81,7 @@ def read_n_save_Files(path, cat):
                 for root,dirnames,filenames in os.walk(path2):
                     for filename in filenames:
                         # img_arr = scipy.ndimage.imread(root+'/'+filename, flatten=True).flatten()
-                        img_arr = scipy.ndimage.imread(root+'/'+filename, flatten=False)
+                        img_arr = scipy.ndimage.imread(root+'/'+filename, flatten=False, mode='RGB')
                         print(img_arr.shape)
                         # img_arr_data[img_arr] = 'N' + str(i)
                         img_arr_data.append(img_arr)
@@ -95,7 +95,7 @@ def read_n_save_Files(path, cat):
                 for root,dirnames,filenames in os.walk(path2):
                     for filename in filenames:
                         # img_arr = scipy.ndimage.imread(root+'/'+filename, flatten=True).reshape(36*36)
-                        img_arr = scipy.ndimage.imread(root+'/'+filename, flatten=False)
+                        img_arr = scipy.ndimage.imread(root+'/'+filename, flatten=False, mode='RGB')
                         print(img_arr.shape)
                         # img_arr_data[img_arr] = 'V' + str(i)
                         img_arr_data.append(img_arr)
@@ -113,8 +113,8 @@ def read_n_save_Files(path, cat):
     print(labels)
     print(img_arr_data.shape)
     print(labels.shape)
-    np.save('/home/surveillance6/PycharmProjects/Regional_OCR/Models/img_data.npy', img_arr_data)
-    np.save('/home/surveillance6/PycharmProjects/Regional_OCR/Models/labels.npy', labels)
+    np.save('/home/surveillance6/PycharmProjects/Regional_OCR/Models/img_data1.npy', img_arr_data)
+    np.save('/home/surveillance6/PycharmProjects/Regional_OCR/Models/labels1.npy', labels)
 
 
 
