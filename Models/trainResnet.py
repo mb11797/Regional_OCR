@@ -20,6 +20,7 @@ def main(args):
     labels = np.load('labels1.npy')
 
     print(type(images))
+    print(images.shape)
     # images = torch.from_numpy(images)
     # images.unsqueeze(0)
 
@@ -31,12 +32,21 @@ def main(args):
 
     ])
 
-    # images1 = [data_transforms(image) for image in images]
-    images = data_transforms(images[1]).unsqueeze(0)
-    # images = data_transforms(images[1]).unsqueeze(0)
-    print(images.shape)
+    images_tensor = torch.empty(12912,3,36,36)
 
-    dataloaders = torch.utils.data.DataLoader(images, batch_size=args.batch_size, shuffle= True, num_workers=4, collate_fn=callable)
+    for i in range(12912):
+        images_tensor[i] = data_transforms(images[i]).unsqueeze(0)
+        print(type(images_tensor[i]))
+        print(images_tensor[i].shape)
+
+    print(images_tensor[12911])
+
+    # images1 = [data_transforms(image) for image in images]
+    # images = data_transforms(images[1]).unsqueeze(0)
+    # images = data_transforms(images[1]).unsqueeze(0)
+    # print(images.shape)
+
+    dataloaders = torch.utils.data.DataLoader(images_tensor, batch_size=args.batch_size, shuffle= True, num_workers=4, collate_fn=callable)
     print(len(dataloaders))
     # Build the models
     extr_features = extractFeatures(args.num_classes).to(device)
@@ -45,26 +55,26 @@ def main(args):
     criterion = nn.CrossEntropyLoss()
     params = list(extr_features.linear.parameters()) + list(extr_features.bn.parameters())
     optimizer = torch.optim.Adam(params, lr=args.learning_rate)
-
-    print(images.shape)
-
-    # Train the model
-    total_step = len(images)
-    for epoch in range(args.num_epochs):
-        for image in dataloaders:
-            print(image)
-            # image = image.to(device)
-            # print(torch._infer_size(image))
-            # print(type(image))
-            # print(image.shape)
-
-            # Forward, backward and optimize
-            # features = extr_features(image)
-            y_pred = extr_features(image)
-            loss = criterion(y_pred, y)
-            extr_features.zero_grad()
-            loss.backward()
-            optimizer.step()
+    #
+    # print(images.shape)
+    #
+    # # Train the model
+    # total_step = len(images)
+    # for epoch in range(args.num_epochs):
+    #     for image in dataloaders:
+    #         print(image)
+    #         # image = image.to(device)
+    #         # print(torch._infer_size(image))
+    #         # print(type(image))
+    #         # print(image.shape)
+    #
+    #         # Forward, backward and optimize
+    #         # features = extr_features(image)
+    #         y_pred = extr_features(image)
+    #         loss = criterion(y_pred, y)
+    #         extr_features.zero_grad()
+    #         loss.backward()
+    #         optimizer.step()
 
 
 
