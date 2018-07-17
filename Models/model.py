@@ -7,7 +7,7 @@ class extractFeatures(nn.Module):
     def __init__(self, num_classes):
         """Load the pretrained ResNet-152 and replace top fc layer."""
         super(extractFeatures, self).__init__()
-        resnet = models.resnet152(pretrained=False)
+        resnet = models.resnet152(pretrained=True)
         modules = list(resnet.children())[:-1]          # delete the last fc layer
         self.resnet = nn.Sequential(*modules)
         self.linear = nn.Linear(resnet.fc.in_features, num_classes)
