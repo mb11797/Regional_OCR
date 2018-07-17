@@ -46,8 +46,14 @@ def main(args):
     # images = data_transforms(images[1]).unsqueeze(0)
     # print(images.shape)
 
-    dataloaders = torch.utils.data.DataLoader(images_tensor, batch_size=args.batch_size, shuffle= True, num_workers=4, collate_fn=callable)
-    print(len(dataloaders))
+    dataloader = torch.utils.data.DataLoader(images_tensor,
+                                             batch_size=args.batch_size,
+                                             shuffle= True,
+                                             num_workers=4,
+                                             drop_last=False,
+                                             timeout=0,
+                                             worker_init_fn=None)
+    print(len(dataloader))
     # Build the models
     extr_features = extractFeatures(args.num_classes).to(device)
 
@@ -55,26 +61,46 @@ def main(args):
     criterion = nn.CrossEntropyLoss()
     params = list(extr_features.linear.parameters()) + list(extr_features.bn.parameters())
     optimizer = torch.optim.Adam(params, lr=args.learning_rate)
-    #
-    # print(images.shape)
-    #
-    # # Train the model
-    # total_step = len(images)
-    # for epoch in range(args.num_epochs):
-    #     for image in dataloaders:
-    #         print(image)
-    #         # image = image.to(device)
-    #         # print(torch._infer_size(image))
-    #         # print(type(image))
-    #         # print(image.shape)
-    #
-    #         # Forward, backward and optimize
-    #         # features = extr_features(image)
-    #         y_pred = extr_features(image)
-    #         loss = criterion(y_pred, y)
-    #         extr_features.zero_grad()
-    #         loss.backward()
-    #         optimizer.step()
+
+    print(images.shape)
+    print(images_tensor.shape)
+    print(images_tensor.size)
+
+    print(dataloader)
+
+    # Train the model
+    total_step = len(dataloader)
+    print(total_step)
+    j = 0
+    l=0
+    for epoch in range(args.num_epochs):
+        k=0
+        l = l + 1
+        for i,batch_images in enumerate(dataloader):
+            print(batch_images)
+            print(type(batch_images))
+            print(batch_images.shape)
+            print(batch_images.size())
+
+            print('epoch : ', l)
+            print('j : ', j+1)
+            print('k : ', k+1)
+
+            j = j+1
+            k = k+1
+            batch_images = batch_images.to(device)
+            # print(torch._infer_size(image))
+            # print(type(image))
+            # print(image.shape)
+            #
+            # Forward, backward and optimize
+            # features = extr_features(batch_images)
+            # y_pred = extr_features(image)
+            # loss = criterion(y_pred, y)
+            # extr_features.zero_grad()
+            # loss.backward()
+            # optimizer.step()
+
 
 
 
