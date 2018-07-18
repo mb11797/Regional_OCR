@@ -2,7 +2,7 @@ import os
 import numpy as np
 import pandas as pd
 import scipy.ndimage
-
+import cv2
 
 
 # def readFiles(path):
@@ -63,8 +63,11 @@ def read_n_save_Files(path, cat):
                 for root,dirnames,filenames in os.walk(path2):
                     for filename in filenames:
                         # img_arr = scipy.ndimage.imread(root+'/'+filename, flatten=False).flatten()
-                        img_arr = scipy.ndimage.imread(root+'/'+filename, flatten=False, mode='RGB')
+                        # img_arr = scipy.ndimage.imread(root+'/'+filename, flatten=False, mode='RGB')
+                        img_arr = cv2.imread(root+'/'+filename, 1)
+                        img_arr = cv2.resize(img_arr, (224, 224))
                         print(img_arr.shape)
+                        print(type(img_arr))
                         # print(img_arr)
                         # print(img_arr.shape)
                         # img_arr_data[img_arr] = 'C' + str(i)
@@ -81,7 +84,9 @@ def read_n_save_Files(path, cat):
                 for root,dirnames,filenames in os.walk(path2):
                     for filename in filenames:
                         # img_arr = scipy.ndimage.imread(root+'/'+filename, flatten=True).flatten()
-                        img_arr = scipy.ndimage.imread(root+'/'+filename, flatten=False, mode='RGB')
+                        # img_arr = scipy.ndimage.imread(root+'/'+filename, flatten=False, mode='RGB')
+                        img_arr = cv2.imread(root+'/'+filename, 1)
+                        img_arr = cv2.resize(img_arr, (224, 224))
                         print(img_arr.shape)
                         # img_arr_data[img_arr] = 'N' + str(i)
                         img_arr_data.append(img_arr)
@@ -95,7 +100,9 @@ def read_n_save_Files(path, cat):
                 for root,dirnames,filenames in os.walk(path2):
                     for filename in filenames:
                         # img_arr = scipy.ndimage.imread(root+'/'+filename, flatten=True).reshape(36*36)
-                        img_arr = scipy.ndimage.imread(root+'/'+filename, flatten=False, mode='RGB')
+                        # img_arr = scipy.ndimage.imread(root+'/'+filename, flatten=False, mode='RGB')
+                        img_arr = cv2.imread(root+'/'+filename, 1)
+                        img_arr = cv2.resize(img_arr, (224, 224))
                         print(img_arr.shape)
                         # img_arr_data[img_arr] = 'V' + str(i)
                         img_arr_data.append(img_arr)
@@ -113,8 +120,8 @@ def read_n_save_Files(path, cat):
     print(labels)
     print(img_arr_data.shape)
     print(labels.shape)
-    np.save('/home/surveillance6/PycharmProjects/Regional_OCR/Models/img_data1.npy', img_arr_data)
-    np.save('/home/surveillance6/PycharmProjects/Regional_OCR/Models/labels1.npy', labels)
+    np.save('/home/surveillance6/PycharmProjects/Regional_OCR/Models/img_data2.npy', img_arr_data)
+    np.save('/home/surveillance6/PycharmProjects/Regional_OCR/Models/labels2.npy', labels)
 
 
 

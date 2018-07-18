@@ -16,8 +16,8 @@ def main(args):
         os.makedirs(args.model_path)
 
     # data loader
-    images = np.load('img_data1.npy')
-    labels = np.load('labels1.npy')
+    images = np.load('img_data2.npy')
+    labels = np.load('labels2.npy')
 
     print(type(images))
     print(images.shape)
@@ -32,7 +32,7 @@ def main(args):
 
     ])
 
-    images_tensor = torch.empty(12912,3,36,36)
+    images_tensor = torch.empty(12912,3,224,224)
 
     for i in range(12912):
         images_tensor[i] = data_transforms(images[i]).unsqueeze(0)
@@ -76,7 +76,7 @@ def main(args):
     for epoch in range(args.num_epochs):
         k=0
         l = l + 1
-        for i,batch_images in enumerate(dataloader):
+        for i, batch_images in enumerate(dataloader):
             print(batch_images)
             print(type(batch_images))
             print(batch_images.shape)
@@ -94,7 +94,7 @@ def main(args):
             # print(image.shape)
             #
             # Forward, backward and optimize
-            # features = extr_features(batch_images)
+            features = extr_features(batch_images)
             # y_pred = extr_features(image)
             # loss = criterion(y_pred, y)
             # extr_features.zero_grad()
@@ -116,20 +116,25 @@ if __name__ == '__main__':
     parser.add_argument('--num_epochs', type=int, default=5)
     parser.add_argument('--batch_size', type=int, default=48)
     parser.add_argument('--learning_rate', type=float, default=0.001)
-    parser.add_argument('--image_size', type=int, default=36)
+    parser.add_argument('--image_size', type=int, default=112)
     args = parser.parse_args()
     print(args)
     main(args)
 
 
-#
+
 # import cv2
 #
 # img = cv2.imread('./devanagari-character-dataset/consonants/1/001_01.jpg', 1)
-# img = cv2.resize(img, (224,224))
+# # img = cv2.resize(img, (224,224))
+# # img = cv2.resize(img, (112, 112))
+# # img = cv2.resize(img, (72, 72))
+# img = cv2.resize(img, (36, 36))
+#
+# print(type(img))
 #
 # cv2.imshow('img', img)
 # cv2.waitKey(0)
-
-
+#
+#
 
