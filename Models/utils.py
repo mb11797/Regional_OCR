@@ -55,6 +55,7 @@ def read_n_save_Files(path, cat):
     # labels = np.array([])
     labels = []
     # labels = np.array((12912,1))
+
     for ctg in cat:
         if ctg == 'consonants':
             path1 = path + '/' + ctg
@@ -75,6 +76,7 @@ def read_n_save_Files(path, cat):
                         # print(img_arr_data)
                         img_arr_data.append(img_arr)
                         labels.append('C' + str(i))
+
 
 
         if ctg == 'numerals':
