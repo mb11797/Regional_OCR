@@ -15,13 +15,15 @@ def main(args):
     if not os.path.exists(args.model_path):
         os.makedirs(args.model_path)
 
+    # torch.set_default_tensor_type('torch.DoubleTensor')
+
     # data loader
     images = np.load('img_data2.npy')
     labels = np.load('labels2.npy')
 
     # print(labels.shape)
     y = torch.zeros(labels.shape[0], 58)
-    temp = "Start"
+    # temp = "Start"
     prev = "C1"
     j = 0
     for i in range(labels.shape[0]):
@@ -32,8 +34,8 @@ def main(args):
             prev = labels[i]
             y[i][j] = 1
 
-    print(y)
-    print(y.shape)
+    # print(y)
+    # print(y.shape)
     # print(y[1])
     # print(y[1].shape)
     # print(y[:, 0])
@@ -74,13 +76,16 @@ def main(args):
         images_tensor[i] = data_transforms(images[i]).unsqueeze(0)
         # print(type(images_tensor[i]))
         # print(images_tensor[i].shape)
-
+    # print(images_tensor.shape)
     # print(images_tensor[12911])
 
     # images1 = [data_transforms(image) for image in images]
     # images = data_transforms(images[1]).unsqueeze(0)
     # images = data_transforms(images[1]).unsqueeze(0)
     # print(images.shape)
+
+    # dataset_tensors = np.concatenate((images_tensor, y), axis=1)
+
 
     dataloader = torch.utils.data.DataLoader(images_tensor,
                                              batch_size=args.batch_size,
@@ -93,11 +98,20 @@ def main(args):
     # Build the models
     extr_features = extractFeatures(args.num_classes).to(device)
 
+    labelloader = torch.utils.data.DataLoader(y,
+                                              batch_size=args.batch_size,
+                                              shuffle=False,
+                                              num_workers=4,
+                                              drop_last=False,
+                                              timeout=0,
+                                              worker_init_fn=None)
+
     #Loss and Optimizer
-    criterion = nn.CrossEntropyLoss()
+    # criterion = nn.CrossEntropyLoss().to(device)
+    criterion = nn.MSELoss()
     # params = list(extr_features.linear.parameters()) + list(extr_features.bn.parameters())
-    # params = list(extr_features.linear.parameters())
-    # optimizer = torch.optim.Adam(params, lr=args.learning_rate)
+    params = list(extr_features.linear.parameters())
+    optimizer = torch.optim.Adam(params, lr=args.learning_rate)
 
     # print(images.shape)
     # print(images_tensor.shape)
@@ -108,12 +122,13 @@ def main(args):
     # Train the model
     total_step = len(dataloader)
     print('batch size : ', total_step)
+    print('label_batch_size : ', len(labelloader))
     j = 0
     l=0
     for epoch in range(args.num_epochs):
         k=0
         l = l + 1
-        for i, batch_images in enumerate(dataloader):
+        for batch_images,y in zip(dataloader,labelloader):
             # print(batch_images)
             # print(type(batch_images))
             # print(batch_images.shape)
@@ -126,6 +141,8 @@ def main(args):
             j = j+1
             k = k+1
             batch_images = batch_images.to(device)
+            # y = torch.dtype(torch)
+            y = y.to(device)
             # print(features)
             # print(torch._infer_size(image))
             # print(type(image))
@@ -145,19 +162,32 @@ def main(args):
             print('indices len : ', len(index))
             print('indices type : ', type(index))
 
-            y_pred = torch.zeros(269,59)
+            y_pred = torch.zeros(269,58)
 
+            loss = 0
             for i in range(269):
-                y_pred[i][index[1]] = 1
+                # y_pred[i][index[i]] = 1
+                loss += criterion(features[i], y[i])
 
-            print('y_pred : ', y_pred)
+            print('Cross Entropy loss for ', k, 'th batch ', loss)
+
+            # y_pred = y_pred.to(device)
+            # print('y_pred : ', y_pred)
+            # print('y : ', y)
+            # print('y shape : ', y.shape)
+
+            # print(y_pred.long().type())
+            # print(y.long().type())
+            # print(y_pred.type())
+            # print(y.type())
 
             # print(max_prob)
             # y_pred = extr_features(image)
-            loss = criterion(y_pred, y)
-            # extr_features.zero_grad()
-            # loss.backward()
-            # optimizer.step()
+            # loss = criterion(y_pred, y)
+            # print('Mean Squared Error loss : ', loss)
+            extr_features.zero_grad()
+            loss.backward()
+            optimizer.step()
 
 
 
@@ -171,7 +201,7 @@ if __name__ == '__main__':
     # Model parameters
     parser.add_argument('--num_classes', type=int, default=58, help='number of classes for classification')
 
-    parser.add_argument('--num_epochs', type=int, default=1)
+    parser.add_argument('--num_epochs', type=int, default=4)
     parser.add_argument('--batch_size', type=int, default=269)
     parser.add_argument('--learning_rate', type=float, default=0.001)
     parser.add_argument('--image_size', type=int, default=112)
