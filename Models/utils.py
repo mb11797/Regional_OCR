@@ -55,11 +55,12 @@ def read_n_save_Files(path, cat):
     # labels = np.array([])
     labels = []
     # labels = np.array((12912,1))
-
+    c = 0
     for ctg in cat:
         if ctg == 'consonants':
             path1 = path + '/' + ctg
             for i in range(1,37):
+
                 path2 = path1 + '/' + str(i)
                 for root,dirnames,filenames in os.walk(path2):
                     for filename in filenames:
@@ -76,12 +77,14 @@ def read_n_save_Files(path, cat):
                         # print(img_arr_data)
                         img_arr_data.append(img_arr)
                         labels.append('C' + str(i))
-
+                        #labels.append(c)
+                #c += 1
 
 
         if ctg == 'numerals':
             path1 = path + '/' + ctg
             for i in range(0,10):
+
                 path2 = path1 + '/' + str(i)
                 for root,dirnames,filenames in os.walk(path2):
                     for filename in filenames:
@@ -94,10 +97,14 @@ def read_n_save_Files(path, cat):
                         img_arr_data.append(img_arr)
                         # img_arr_data = np.vtsack((img_arr_data, img_arr))
                         labels.append('N' + str(i))
+                        #labels.append(c)
+                #c += 1
+
 
         if ctg == 'vowels':
             path1 = path + '/' + ctg
             for i in range(1,13):
+
                 path2 = path1 + '/' + str(i)
                 for root,dirnames,filenames in os.walk(path2):
                     for filename in filenames:
@@ -110,6 +117,8 @@ def read_n_save_Files(path, cat):
                         img_arr_data.append(img_arr)
                         # img_arr_data = np.vstack((img_arr_data, img_arr))
                         labels.append('V' + str(i))
+                        #labels.append(c)
+                #c += 1
 
     # img_arr_data = np.ndarray(img_arr_data)
     # labels = np.ndarray(labels)
@@ -123,7 +132,7 @@ def read_n_save_Files(path, cat):
     print(img_arr_data.shape)
     print(labels.shape)
     np.save('/home/surveillance6/PycharmProjects/Regional_OCR/Models/img_data2.npy', img_arr_data)
-    np.save('/home/surveillance6/PycharmProjects/Regional_OCR/Models/labels2.npy', labels)
+    np.save('/home/surveillance6/PycharmProjects/Regional_OCR/Models/labels3.npy', labels)
 
 
 

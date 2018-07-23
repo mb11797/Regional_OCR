@@ -9,6 +9,7 @@ from sklearn.preprocessing import OneHotEncoder
 
 # Device Configuration
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+# device = torch.device('cpu')
 
 def main(args):
     # Create model directory
@@ -21,19 +22,21 @@ def main(args):
     images = np.load('img_data2.npy')
     labels = np.load('labels2.npy')
 
-    # print(labels.shape)
-    y = torch.zeros(labels.shape[0], 58)
-    # temp = "Start"
-    prev = "C1"
-    j = 0
-    for i in range(labels.shape[0]):
-        if labels[i] == prev:
-            y[i][j] = 1
-        else:
-            j = j+1
-            prev = labels[i]
-            y[i][j] = 1
+    labels = torch.from_numpy(labels)
 
+    # print(labels.shape)
+    # y = torch.zeros(labels.shape[0], 58)
+    # # # temp = "Start"
+    # prev = "C1"
+    # j = 0
+    # for i in range(labels.shape[0]):
+    #     if labels[i] == prev:
+    #         y[i][j] = 1
+    #     else:
+    #         j = j+1
+    #         prev = labels[i]
+    #         y[i][j] = 1
+    #
     # print(y)
     # print(y.shape)
     # print(y[1])
@@ -43,10 +46,8 @@ def main(args):
 
 
 
-    #
-    #
     # print(y.shape)
-    # print(labels)
+    print(labels)
     #
     # labels = np.unique(labels)
     #
@@ -55,6 +56,7 @@ def main(args):
     # oneHot = OneHotEncoder(categorical_features=[0])
     # y = oneHot.fit_transform(labels)
     # print(type(y))
+    # print(y.shape)
 
 
     # print(type(images))
@@ -97,8 +99,9 @@ def main(args):
     print('dataloader len : ', len(dataloader))
     # Build the models
     extr_features = extractFeatures(args.num_classes).to(device)
+    print(extr_features)
 
-    labelloader = torch.utils.data.DataLoader(y,
+    labelloader = torch.utils.data.DataLoader(labels,
                                               batch_size=args.batch_size,
                                               shuffle=False,
                                               num_workers=4,
@@ -107,10 +110,14 @@ def main(args):
                                               worker_init_fn=None)
 
     #Loss and Optimizer
-    # criterion = nn.CrossEntropyLoss().to(device)
-    criterion = nn.MSELoss()
+    criterion = nn.CrossEntropyLoss()
+    # criterion = nn.MSELoss()
     # params = list(extr_features.linear.parameters()) + list(extr_features.bn.parameters())
-    params = list(extr_features.linear.parameters())
+    # params = list(extr_features.linear.parameters())
+
+
+    params = list(extr_features.model.parameters())
+    print(len(params))
     optimizer = torch.optim.Adam(params, lr=args.learning_rate)
 
     # print(images.shape)
@@ -125,6 +132,7 @@ def main(args):
     print('label_batch_size : ', len(labelloader))
     j = 0
     l=0
+    learning_rate = 0.001
     for epoch in range(args.num_epochs):
         k=0
         l = l + 1
@@ -142,7 +150,10 @@ def main(args):
             k = k+1
             batch_images = batch_images.to(device)
             # y = torch.dtype(torch)
+            # y = y.type(torch.FloatTensor)
+            # y = torch.autograd.Variable(y)
             y = y.to(device)
+
             # print(features)
             # print(torch._infer_size(image))
             # print(type(image))
@@ -150,26 +161,35 @@ def main(args):
             #
             # Forward, backward and optimize
             features = extr_features(batch_images)
-            print('features shape : ', features.shape)
-            print('Single image features extracted : ', features[1])
-            print('Single image features extracted : ', type(features[1]))
-            print('Single image features extracted : ', features[1].shape)
+            features = features.to(device)
+            # features = features.type(torch.FloatTensor)
+            # features = torch.autograd.Variable(features)
+            # print('features shape : ', features.shape)
+            # print('Single image features extracted : ', features[1])
+            # print('Single image features extracted : ', type(features[1]))
+            # print('Single image features extracted : ', features[1].shape)
             max_prob, index = torch.max(features, 1)
-            print('max_prob : ', max_prob)
-            print('max_prob len : ', len(max_prob))
-            print('max_prob type : ', type(max_prob))
+            # print('max_prob : ', max_prob)
+            # print('max_prob len : ', len(max_prob))
+            # print('max_prob type : ', type(max_prob))
             print('indices : ', index)
-            print('indices len : ', len(index))
-            print('indices type : ', type(index))
+            # print('indices len : ', len(index))
+            # print('indices type : ', type(index))
+            #
+            # y_pred = torch.zeros(269,58)
 
-            y_pred = torch.zeros(269,58)
+            # print(y[1].unsqueeze(0).shape)
+            # loss = 0
+            # for p in range(269):
+            #     # y_pred[p][index[p]] = 1
+            #     loss += criterion(features[p].unsqueeze(0), y[p].view(58))
+            print(features.shape)
+            print(y.shape)
 
-            loss = 0
-            for i in range(269):
-                # y_pred[i][index[i]] = 1
-                loss += criterion(features[i], y[i])
 
-            print('Cross Entropy loss for ', k, 'th batch ', loss)
+            loss = criterion(features, y)
+
+            print('Cross Entropy loss for ', j, 'th batch ', loss)
 
             # y_pred = y_pred.to(device)
             # print('y_pred : ', y_pred)
@@ -187,7 +207,10 @@ def main(args):
             # print('Mean Squared Error loss : ', loss)
             extr_features.zero_grad()
             loss.backward()
-            optimizer.step()
+            # optimizer.step()
+            with torch.no_grad():
+                for param in extr_features.model.parameters():
+                    param  -= learning_rate * param.grad
 
 
 
@@ -201,10 +224,10 @@ if __name__ == '__main__':
     # Model parameters
     parser.add_argument('--num_classes', type=int, default=58, help='number of classes for classification')
 
-    parser.add_argument('--num_epochs', type=int, default=4)
-    parser.add_argument('--batch_size', type=int, default=269)
+    parser.add_argument('--num_epochs', type=int, default=15)
+    parser.add_argument('--batch_size', type=int, default=48)
     parser.add_argument('--learning_rate', type=float, default=0.001)
-    parser.add_argument('--image_size', type=int, default=112)
+    parser.add_argument('--image_size', type=int, default=224)
     args = parser.parse_args()
     # print(args)
     main(args)
