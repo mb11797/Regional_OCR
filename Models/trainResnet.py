@@ -8,6 +8,7 @@ from torchvision import transforms
 from sklearn.preprocessing import OneHotEncoder
 
 # Device Configuration
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 # device = torch.device('cpu')
 
@@ -23,6 +24,9 @@ def main(args):
     labels = np.load('labels2.npy')
 
     labels = torch.from_numpy(labels)
+
+    # dataset = [images, labels]
+    # dataset = torch.tensor(dataset)
 
     # print(labels.shape)
     # y = torch.zeros(labels.shape[0], 58)
@@ -109,6 +113,19 @@ def main(args):
                                               timeout=0,
                                               worker_init_fn=None)
 
+    print('labelloader len : ', len(labelloader))
+
+    # dataset_loader = torch.utils.data.DataLoader(dataset,
+    #                                              batch_size = args.batch_size,
+    #                                              shuffle = True,
+    #                                              num_workers = 2,
+    #                                              drop_last = False,
+    #                                              timeout = 0,
+    #                                              workout_init_fn = None)
+    #
+    # print('dataset_loader len : ', len(dataset_loader))
+
+
     #Loss and Optimizer
     criterion = nn.CrossEntropyLoss()
     # criterion = nn.MSELoss()
@@ -132,7 +149,8 @@ def main(args):
     print('label_batch_size : ', len(labelloader))
     j = 0
     l=0
-    learning_rate = 0.001
+    # learning_rate = 0.3
+    # decay_rate = 0.1
     for epoch in range(args.num_epochs):
         k=0
         l = l + 1
@@ -208,12 +226,19 @@ def main(args):
             extr_features.zero_grad()
             loss.backward()
             # optimizer.step()
+            # if epoch % 10 == 0:
+            #     learning_rate_new = (1 / (1 + decay_rate * epoch)) * learning_rate
+
             with torch.no_grad():
                 for param in extr_features.model.parameters():
-                    param  -= learning_rate * param.grad
+                    param  -= args.learning_rate * param.grad
 
 
 
+        if epoch % 10 == 0:
+            torch.save(extr_features, "MB_model1.pt")
+
+    torch.save(extr_features, "MB_model2.pt")
 
 
 
@@ -224,9 +249,9 @@ if __name__ == '__main__':
     # Model parameters
     parser.add_argument('--num_classes', type=int, default=58, help='number of classes for classification')
 
-    parser.add_argument('--num_epochs', type=int, default=15)
+    parser.add_argument('--num_epochs', type=int, default=1000)
     parser.add_argument('--batch_size', type=int, default=48)
-    parser.add_argument('--learning_rate', type=float, default=0.001)
+    parser.add_argument('--learning_rate', type=float, default=0.003)
     parser.add_argument('--image_size', type=int, default=224)
     args = parser.parse_args()
     # print(args)
