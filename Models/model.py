@@ -21,9 +21,9 @@ class extractFeatures(nn.Module):
             # nn.Linear(resnet.fc.in_features, num_classes),
             # nn.Linear(2048, num_classes)
             # nn.Softmax()
-            nn.Linear(resnet.fc.in_features, 1024),
+            nn.Linear(resnet.fc.in_features, 116),
             nn.ReLU(),
-            nn.Linear(1024, num_classes),
+            nn.Linear(116, num_classes),
             nn.Softmax()
         )
 

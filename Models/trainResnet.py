@@ -20,8 +20,9 @@ def main(args):
     # torch.set_default_tensor_type('torch.DoubleTensor')
 
     # data loader
-    images = np.load('img_data2.npy')
-    labels = np.load('labels2.npy')
+    images = np.load('img_data4.npy')
+    labels = np.load('labels4.npy')
+
 
     labels = torch.from_numpy(labels)
 
@@ -49,7 +50,7 @@ def main(args):
     # print(y[:, 0].shape)
 
 
-
+    print(images.shape)
     # print(y.shape)
     print(labels)
     #
@@ -81,7 +82,7 @@ def main(args):
     for i in range(12912):
         images_tensor[i] = data_transforms(images[i]).unsqueeze(0)
         # print(type(images_tensor[i]))
-        # print(images_tensor[i].shape)
+        print(images_tensor[i].shape)
     # print(images_tensor.shape)
     # print(images_tensor[12911])
 
@@ -92,6 +93,8 @@ def main(args):
 
     # dataset_tensors = np.concatenate((images_tensor, y), axis=1)
 
+    # dataset = zip(images_tensor, labels)
+    # dataset = list(dataset)
 
     dataloader = torch.utils.data.DataLoader(images_tensor,
                                              batch_size=args.batch_size,
@@ -101,9 +104,6 @@ def main(args):
                                              timeout=0,
                                              worker_init_fn=None)
     print('dataloader len : ', len(dataloader))
-    # Build the models
-    extr_features = extractFeatures(args.num_classes).to(device)
-    print(extr_features)
 
     labelloader = torch.utils.data.DataLoader(labels,
                                               batch_size=args.batch_size,
@@ -121,10 +121,13 @@ def main(args):
     #                                              num_workers = 2,
     #                                              drop_last = False,
     #                                              timeout = 0,
-    #                                              workout_init_fn = None)
+    #                                              worker_init_fn = None)
     #
     # print('dataset_loader len : ', len(dataset_loader))
 
+    # Build the models
+    extr_features = extractFeatures(args.num_classes).to(device)
+    print(extr_features)
 
     #Loss and Optimizer
     criterion = nn.CrossEntropyLoss()
@@ -137,16 +140,11 @@ def main(args):
     print(len(params))
     optimizer = torch.optim.Adam(params, lr=args.learning_rate)
 
-    # print(images.shape)
-    # print(images_tensor.shape)
-    # print(images_tensor.size)
-    #
-    # print(dataloader)
-
     # Train the model
     total_step = len(dataloader)
     print('batch size : ', total_step)
     print('label_batch_size : ', len(labelloader))
+    # print('dataset_loader len : ', len(dataset_loader))
     j = 0
     l=0
     # learning_rate = 0.3
@@ -154,7 +152,7 @@ def main(args):
     for epoch in range(args.num_epochs):
         k=0
         l = l + 1
-        for batch_images,y in zip(dataloader,labelloader):
+        for batch_images,y in zip(dataloader, labelloader):
             # print(batch_images)
             # print(type(batch_images))
             # print(batch_images.shape)
@@ -236,9 +234,9 @@ def main(args):
 
 
         if epoch % 10 == 0:
-            torch.save(extr_features, "MB_model1.pt")
+            torch.save(extr_features, "MB_model3.pt")
 
-    torch.save(extr_features, "MB_model2.pt")
+    torch.save(extr_features, "MB_model3.pt")
 
 
 

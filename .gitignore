@@ -1,13 +1,18 @@
+devanagari_recognition_model_res152.pt
+img_data.npy
+img_data1.npy
 img_data2.npy
-labels2.npy
-models/resnet152-b121ed2d.pth
-labels3.npy
 img_data4.npy
+labels.npy
+labels1.npy
+labels2.npy
+labels3.npy
 labels4.npy
+models/resnet152-b121ed2d.pth
 MB_model.pt
 MB_model1.pt
 MB_model2.pt
-
-
-
+MB_model3.pt
+model_fc_116.pt
+saved_model.pt
 
