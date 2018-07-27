@@ -8,7 +8,7 @@ import argparse
 import numpy as np
 
 # Device Configuration
-os.environ["CUDA_VISIBL_Devices"] = "0"
+os.environ["CUDA_VISIBLE_Devices"] = "0"
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def train(args):
